@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>ATUL SINGH - Full Stack Developer</title>
+  <meta name="title" content="Atul Singh - Full Stack Developer">
+  <meta name="description" content="This is a personal portfolio of Atul">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="images/krosinvestbank.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="images/hero-banner.jpeg">
+
+</head>
+
+<body>
+
+  <!-- 
+    - #PRELOADER
+  -->
+
+  <div class="preloader" data-preloader>
+    <div class="circle"></div>
+  </div>
+
+
+
+
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="images/logo.svg" width="170" height="40" alt="PORTFOLIO home">
+      </a>
+
+      <button class="nav-toggle-btn" data-nav-toggler data-nav-toggle-btn aria-label="Toggle menu">
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+      </button>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+
+          <li>
+            <a href="#" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="images/AtulSinghResume.pdf" class="navbar-link">Resume</a>
+          </li>
+
+          <li>
+            <a href="mailto:natul0636@gmail.com" class="navbar-link">Contact</a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <div class="overlay" data-nav-toggler data-overlay></div>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" aria-label="home">
+        <div class="container">
+
+          <div class="hero-content">
+
+            <h1 class="h1 hero-title">ATUL SINGH</h1>
+
+            <p class="hero-subtitle">
+              Creative Full Stack Developer
+            </p>
+
+            <div class="hero-banner">
+              <img src="images/hero-banner.jpeg" width="800" height="800" alt="ATUL SINGH" class="w-100">
+            </div>
+
+            <p class="section-text">
+                Hi, I'm Atul Singh, a Full Stack Developer currently at Infosys. With over 2 years of hands-on experience, 
+                I bring expertise in a wide array of technologies and frameworks. My journey in software development has honed my skills
+                in crafting robust solutions and delivering seamless user experiences.
+            </p>
+
+            <a href="images/AtulSinghResume.pdf" class="btn has-before" download>
+              <span class="span">Download CV</span>
+
+              <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #Experience
+      -->
+
+      <section class="experience" aria-labelledby="experience-label">
+        <div class="container">
+
+          <div class="title-wrapper">
+
+            <div>
+              <p class="section-subtitle">
+                Experience That I Provide
+              </p>
+
+              <h2 class="h2 section-title" id="experience-label">Experience</h2>
+            </div>
+
+            <p class="section-text">
+                I began my career at Cognizant as a Java Developer, where I gained valuable experience over a 6-month period.
+                Unfortunately, due to the pandemic, I faced a layoff which significantly impacted my career trajectory, rendering me unable to 
+                pursue other opportunities for a period of 2 years.Subsequently, I transitioned to Infosys, where I have been serving as a Full Stack Developer since June 2022.
+            </p>
+
+          </div>
+          <!-- Modal HTML Structure -->
+            <div id="myModal" class="modal">
+                 <div class="modal-content">
+                 <span class="close">&times;</span>
+                 <h2 id="modal-title"></h2>
+                 <p id="modal-description"></p>
+                </div>
+            </div>
+  
+
+          <div class="slider" data-slider>
+
+            <ul class="slider-container experience-list" data-slider-container>
+
+              <li class="slider-item" data-slider-item>
+                <div class="experience-card">
+
+                  <div class="card-icon">
+                    <ion-icon name="podium-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 card-title">Cognizant</h3>
+
+                  <p class="card-text">
+                    01/2020 - 06/2020 PUNE, India
+                    Java Developer
+                  </p>
+
+                  <span class="text-lg card-number">01</span>
+
+                  <a href="#" class="layer-link" aria-label="More about my website design experience"></a>
+
+                </div>
+              </li>
+
+              <li class="slider-item" data-slider-item>
+                <div class="experience-card">
+
+                  <div class="card-icon">
+                    <ion-icon name="podium-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 card-title">Infosys</h3>
+
+                  <p class="card-text">
+                    Backend Developer skilled in creating scalable server-side solutions. 
+                    With expertise in languagee like Java, Python, javascript 
+                    I specialize in architecting databases, APIs, and backend systems for seamless web applications. Let's build innovative solutions together!
+                  </p>
+
+                  <span class="text-lg card-number">02</span>
+
+                  <a href="#" class="layer-link" aria-label="More about my Backend Profile"></a>
+
+                </div>
+              </li>
+
+              <li class="slider-item" data-slider-item>
+                <div class="experience-card">
+
+                  <div class="card-icon loading-spin"></div>
+
+
+                  <h3 class="h3 card-title">Uploading...</h3>
+
+                  <p class="card-text">
+                    As soon as I secure a new employment opportunity
+                  </p>
+
+                  <span class="text-lg card-number">03</span>
+
+                  <a href="#" class="layer-link" aria-label="More about my Social Media"></a>
+
+                </div>
+              </li>
+
+            </ul>
+
+            <div class="slider-controls">
+              <button class="slider-control prev" data-slider-prev aria-label="Slide to previous item">
+                <div class="line"></div>
+                <div class="arrow"></div>
+              </button>
+
+              <button class="slider-control next" data-slider-next aria-label="Slide to next item">
+                <div class="line"></div>
+                <div class="arrow"></div>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #SKILLS
+      -->
+
+      <section class="section skills" aria-label="our skills">
+        <div class="container">
+
+          <p class="section-subtitle">I Make The Future</p>
+
+          <h2 class="h2 section-title">I Help To Develop & Create Digital Future.</h2>
+
+          <div class="skills-wrapper">
+
+            <div>
+              <p class="section-text">
+                
+              </p>
+
+              <p class="section-text">
+                Aquired Skills Throuhout My Journy:
+              </p>
+
+              <a href="#" class="btn has-before">natul0636@gmail.com</a>
+            </div>
+
+            <div>
+
+              <ul class="skills-list">
+
+                <li>
+                  <div class="progress-wrapper">
+                    <p class="progress-label">Java</p>
+
+                    <data class="progress-value" value="90">90%</data>
+                  </div>
+
+                  <div class="progress-bg">
+                    <div class="progress" style="width: 90%;"></div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="progress-wrapper">
+                    <p class="progress-label">Spring Boot</p>
+
+                    <data class="progress-value" value="80">80%</data>
+                  </div>
+
+                  <div class="progress-bg">
+                    <div class="progress" style="width: 80%;"></div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="progress-wrapper">
+                    <p class="progress-label">Microexperiences</p>
+
+                    <data class="progress-value" value="95">95%</data>
+                  </div>
+
+                  <div class="progress-bg">
+                    <div class="progress" style="width: 95%;"></div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="progress-wrapper">
+                    <p class="progress-label">Hibernate</p>
+
+                    <data class="progress-value" value="85">85%</data>
+                  </div>
+
+                  <div class="progress-bg">
+                    <div class="progress" style="width: 85%;"></div>
+                  </div>
+                </li>
+
+                <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">RESTful Api</p>
+  
+                      <data class="progress-value" value="85">95%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+
+                <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">PostgreSQL</p>
+  
+                      <data class="progress-value" value="85">90%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+                
+                  <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">JUnit/Groovy</p>
+  
+                      <data class="progress-value" value="85">80%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+
+                <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">Google Cloud Plateform(GCP)</p>
+  
+                      <data class="progress-value" value="85">90%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+
+                <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">CI/CD</p>
+  
+                      <data class="progress-value" value="85">96%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+
+                <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">javascript</p>
+  
+                      <data class="progress-value" value="85">90%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+
+                <li>
+                    <div class="progress-wrapper">
+                      <p class="progress-label">Angular</p>
+  
+                      <data class="progress-value" value="85">60%</data>
+                    </div>
+  
+                    <div class="progress-bg">
+                      <div class="progress" style="width: 85%;"></div>
+                    </div>
+                  </li>
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+    <div class="container">
+
+      <ul class="footer-list">
+
+        <li>
+          <p class="h4 footer-list-title">Get in touch</p>
+        </li>
+
+        <li>
+          <a href="mailto:natul0636@gmail.com" class="footer-link">natul0636@gmail.com</a>
+        </li>
+        <li>
+            <p>+91-9304591415</p>
+        </li>
+
+      </ul>
+
+      <ul class="footer-list">
+
+        <li>
+          <p class="h4 footer-list-title">Locations</p>
+        </li>
+
+        <li>
+          <a href="#" class="footer-link">Bangalore - INDIA</a>
+        </li>
+
+      </ul>
+
+      <ul class="social-list">
+
+        
+
+        <li>
+          <a href="https://www.instagram.com/0lord_voldemort" target="_blank"class="social-link">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+
+        <li>
+          <a href="https://www.linkedin.com/in/atulsingh0636" target="_blank"class="social-link">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </footer>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="javascript.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
