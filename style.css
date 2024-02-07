@@ -547,7 +547,16 @@
     --content-color: var(--white);
   }
   
-  
+   .text-3{
+      font-size: 30px;
+      color: #ffffff;
+      margin: 5px 0;
+      display: inline-flex;
+      font-weight: bold;
+  }
+  .typing {
+    margin-left: 5px;
+  }
   
   
   

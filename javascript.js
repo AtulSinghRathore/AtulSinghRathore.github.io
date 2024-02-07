@@ -158,6 +158,15 @@ const initSlider = function (currentSlider) {
     sliderPrevBtn.style.display = 'none';
   }
 
+  // Initialize Typed.js for the text-3 element
+  var typed = new Typed(".typing", {
+      strings: ["Developer", "Coder", "Gamer", "Freelancer"],
+      typeSpeed: 100,
+      backSpeed: 60,
+      loop: true
+  });
+
+
   /**
    * slide with [shift + mouse wheel]
    */
