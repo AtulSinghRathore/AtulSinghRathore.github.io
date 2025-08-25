@@ -1,4 +1,4 @@
-Atul Singh - Web & App Developer
+Atul Singh - Java Full Stack Developer
 
 This is a personal portfolio
 
@@ -22,11 +22,11 @@ Contact
 #---------- HERO ----------#
 
 Atul Singh 
-Creative Web & App Developer
+Creative Java Full Stack Developer
 
 alt = Atul Singh 
 
-Hi, I’m Atul Singh  and I am creative web & app developer who dream making the world better place by creating captivating products.
+Hi, I’m Atul Singh and I am a Java full stack developer specializing in React and MySQL, who dreams of making the world a better place by creating captivating products.
 
 Download CV
 <ion-icon name="download-outline" aria-hidden="true"></ion-icon>

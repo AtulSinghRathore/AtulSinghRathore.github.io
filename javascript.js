@@ -159,12 +159,12 @@ const initSlider = function (currentSlider) {
   }
 
   // Initialize Typed.js for the text-3 element
-  var typed = new Typed(".typing", {
-      strings: ["Developer", "Coder", "Gamer", "Freelancer"],
-      typeSpeed: 100,
-      backSpeed: 60,
-      loop: true
-  });
+    var typed = new Typed(".typing", {
+        strings: ["Java Developer", "Full Stack Developer", "React Developer", "MySQL Specialist"],
+        typeSpeed: 100,
+        backSpeed: 60,
+        loop: true
+    });
 
 
   /**
