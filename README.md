@@ -16,6 +16,10 @@ npm run dev
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`
 - `NEXT_PUBLIC_SANITY_DATASET`
 
+### Contact
+
+The `/api/contact` route sends form submissions using [Resend](https://resend.com). Configure your `RESEND_API_KEY` and `CONTACT_TO` to enable email delivery.
+
 ## Deployment
 
 Deploy on [Vercel](https://vercel.com).
