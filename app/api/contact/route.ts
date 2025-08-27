@@ -1,16 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { CONTACT_TO } from '../../../lib/constants'
 
-export async function POST(req: NextRequest) {
-  const { name, email, message } = await req.json()
+export async function POST(request: Request) {
+  const { name, email, message } = await request.json()
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const resend = new Resend(process.env.RESEND_API_KEY || '')
     await resend.emails.send({
-      from: 'portfolio@example.com',
-      to: process.env.CONTACT_TO ?? 'natul0636@natul.com',
-      subject: `Message from ${name}`,
+      from: 'Portfolio <onboarding@resend.dev>',
+      to: CONTACT_TO,
       replyTo: email,
-      text: message
+      subject: `New message from ${name}`,
+      text: String(message)
     })
     return NextResponse.json({ ok: true })
   } catch (err) {
