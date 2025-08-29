@@ -1,26 +1,23 @@
-import "./../styles/globals.css";
+// app/layout.tsx
+import "../styles/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import SmoothScroll from "../components/SmoothScroll";
-import ProgressRail from "../components/ProgressRail"; // <-- add
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Atul Singh — Portfolio",
-  description: "I craft fast, elegant, human-centered web experiences.",
-  metadataBase: new URL("https://example.com")
+  description: "I craft fast, elegant, human-centered web experiences."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-bg text-text`}>
+      {/* suppressHydrationWarning prevents React from throwing if any upstream
+         streaming markers differ at the very start of <body> */}
+      <body className="bg-bg text-text" suppressHydrationWarning>
         <SmoothScroll />
         <Nav />
-        <ProgressRail /> {/* <-- add */}
         {children}
         <Footer />
       </body>
