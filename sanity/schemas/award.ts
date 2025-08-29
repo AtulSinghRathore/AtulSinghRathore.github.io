@@ -1,13 +1,12 @@
-import { defineType, defineField } from 'sanity'
-
-export default defineType({
-  name: 'award',
-  title: 'Award',
-  type: 'document',
+const award = {
+  name: "award",
+  title: "Award",
+  type: "document",
   fields: [
-    defineField({ name: 'title', type: 'string' }),
-    defineField({ name: 'org', type: 'string' }),
-    defineField({ name: 'date', type: 'date' }),
-    defineField({ name: 'link', type: 'url' })
+    { name: "title", type: "string", title: "Title" },
+    { name: "org", type: "string", title: "Organization" },
+    { name: "date", type: "date", title: "Date" },
+    { name: "link", type: "url", title: "Link" }
   ]
-})
+};
+export default award;

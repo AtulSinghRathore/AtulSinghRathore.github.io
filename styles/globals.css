@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #0b0d12;
+  --surface: #0d0f14;
+  --text: #e7ebf2;
+  --muted: #a3aab8;
+  --accent: #3ea6ff;
+  --accent2: #7b61ff;
+}
+
+html, body { height: 100%; }
 body {
-  @apply bg-black text-white antialiased;
+  @apply text-text bg-bg antialiased;
+  background-image: radial-gradient(1200px 800px at 70% -10%, #101421 0%, var(--bg) 60%);
+  background-attachment: fixed;
+}
+
+.gradient-card {
+  background:
+    conic-gradient(from 200deg at 50% 50%,
+      rgba(62,166,255,.25),
+      rgba(123,97,255,.2),
+      rgba(62,166,255,.25));
+  filter: saturate(125%) blur(.2px);
+}
+
+.progress-dot {
+  @apply w-2.5 h-2.5 rounded-full bg-[#2a3142] outline outline-1 outline-transparent transition-transform;
+}
+.progress-dot[data-active="true"] {
+  background: var(--accent);
+  outline-color: var(--accent);
+}
+
+.magnetic { position: relative; will-change: transform; }
+
+/* forming text base */
+.cursor-forming { display: inline-flex; flex-wrap: wrap; }
+.cf-char{
+  display:inline-block;
+  will-change: transform, filter, opacity;
+  transition: transform .22s cubic-bezier(.2,.6,.2,1),
+              filter .22s cubic-bezier(.2,.6,.2,1),
+              opacity .22s linear;
+  opacity:.35;               /* far from cursor */
+  transform: translateZ(0) scale(.9);
+  filter: blur(4px);
+}
+@media (prefers-reduced-motion: reduce){
+  .cf-char{ opacity:1; filter:none; transform:none; transition:none; }
 }
