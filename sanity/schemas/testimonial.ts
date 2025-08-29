@@ -1,13 +1,12 @@
-import { defineType, defineField } from 'sanity'
-
-export default defineType({
-  name: 'testimonial',
-  title: 'Testimonial',
-  type: 'document',
+const testimonial = {
+  name: "testimonial",
+  title: "Testimonial",
+  type: "document",
   fields: [
-    defineField({ name: 'author', type: 'string' }),
-    defineField({ name: 'role', type: 'string' }),
-    defineField({ name: 'quote', type: 'text' }),
-    defineField({ name: 'avatar', type: 'image' })
+    { name: "author", type: "string", title: "Author" },
+    { name: "role", type: "string", title: "Role" },
+    { name: "quote", type: "text", title: "Quote" },
+    { name: "avatar", type: "image", title: "Avatar" }
   ]
-})
+};
+export default testimonial;

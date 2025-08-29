@@ -1,23 +1,29 @@
-import '../styles/globals.css'
-import type { ReactNode } from 'react'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
-import SmoothScroll from '../components/SmoothScroll'
+import "./../styles/globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Nav from "../components/Nav";
+import Footer from "../components/Footer";
+import SmoothScroll from "../components/SmoothScroll";
+import ProgressRail from "../components/ProgressRail"; // <-- add
 
-export const metadata = {
-  title: 'Atul Singh - Full-Stack Developer',
-  description: 'I craft fast, elegant, human-centered web experiences.'
-}
+const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export const metadata: Metadata = {
+  title: "Atul Singh — Portfolio",
+  description: "I craft fast, elegant, human-centered web experiences.",
+  metadataBase: new URL("https://example.com")
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-black text-white">
-      <body>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.className} bg-bg text-text`}>
         <SmoothScroll />
         <Nav />
+        <ProgressRail /> {/* <-- add */}
         {children}
         <Footer />
       </body>
     </html>
-  )
+  );
 }

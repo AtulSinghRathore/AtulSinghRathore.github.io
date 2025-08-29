@@ -1,6 +1,6 @@
-import siteSettings from './siteSettings'
-import project from './project'
-import testimonial from './testimonial'
-import award from './award'
+import project from "./project";
+import testimonial from "./testimonial";
+import award from "./award";
+import siteSettings from "./siteSettings";
 
-export default [siteSettings, project, testimonial, award]
+export const schemaTypes = [siteSettings, project, testimonial, award];
