@@ -4,7 +4,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CursorFormingText from "@/components/CursorFormingText";
+import CursorFormingText from "../components/CursorFormingText";
 
 gsap.registerPlugin(ScrollTrigger);
 

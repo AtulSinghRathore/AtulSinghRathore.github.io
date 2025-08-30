@@ -2,11 +2,13 @@
   "name": "ningh-style-portfolio",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+
+  
   "dependencies": {
     "@sanity/client": "^6.18.2",
     "@studio-freight/lenis": "^1.0.42",
