@@ -1,57 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback } from "react";
 
 export default function Contact() {
-  const [status, setStatus] = useState<string>("");
-
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd) as Record<string, string>;
-    setStatus("Sending…");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      const json = await res.json();
-      setStatus(json.ok ? "Sent!" : "Failed. Please email me directly.");
-    } catch {
-      setStatus("Something went wrong. Please email me directly.");
-    }
-  }
+  const backToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <header className="mb-4">
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-1">Let’s work together</h2>
-        <p className="text-muted">Tell me about your project. I’ll reply within 24h.</p>
-      </header>
+    <div className="relative min-h-[100svh] overflow-hidden">
+      {/* subtle mercury bg just for this section */}
+      <div className="absolute inset-0 pointer-events-none contact-noise" />
 
-      <form onSubmit={submit} className="grid gap-3 md:grid-cols-2">
-        <label className="grid gap-1">
-          <span className="text-muted text-sm">Name</span>
-          <input name="name" required className="rounded-xl bg-[#0e1118] border border-[#202637] px-3 py-3 outline-none" />
-        </label>
-        <label className="grid gap-1">
-          <span className="text-muted text-sm">Email</span>
-          <input type="email" name="email" required className="rounded-xl bg-[#0e1118] border border-[#202637] px-3 py-3 outline-none" />
-        </label>
-        <label className="grid gap-1 md:col-span-2">
-          <span className="text-muted text-sm">Message</span>
-          <textarea name="message" rows={5} required className="rounded-xl bg-[#0e1118] border border-[#202637] px-3 py-3 outline-none resize-y"></textarea>
-        </label>
-        <div className="md:col-span-2 flex items-center gap-3">
-          <button className="magnetic inline-flex items-center justify-center px-5 py-3 rounded-full font-semibold shadow-glow text-[#0c0f15]"
-                  style={{ backgroundImage: "linear-gradient(135deg, var(--accent), var(--accent2))" }}>
-            Send
-          </button>
-          <a className="text-muted" href="mailto:natul0636@natul.com">Or email me directly</a>
-          <p aria-live="polite" className="text-sm text-muted">{status}</p>
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-10">
+        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 opacity-70">
+          Have an idea in mind? Feel free to contact.
+        </h2>
+
+        {/* Back to top */}
+        <div className="py-16 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <button
+              onClick={backToTop}
+              className="group w-14 h-14 rounded-xl border border-white/20 bg-white/10 hover:bg-white/15 backdrop-blur-md flex items-center justify-center"
+              aria-label="Back to top"
+            >
+              {/* Straight Up Arrow */}
+              <svg
+                viewBox="0 0 24 24"
+                className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 19V5" />
+                <path d="M5 12l7-7 7 7" />
+              </svg>
+            </button>
+
+            <span className="text-xs tracking-[0.35em] uppercase opacity-70">
+              Back to top
+            </span>
+          </div>
         </div>
-      </form>
+
+        <div
+          className="text-[11vw] md:text-[9vw] font-extrabold leading-none tracking-tighter opacity-[.06] select-none text-center"
+          aria-hidden="true"
+        >
+          GET IN TOUCH
+        </div>
+      </div>
+
+      {/* footer stripe for last page only */}
+      <div className="relative z-10 border-t border-white/10 bg-black/30 backdrop-blur-xl">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between text-sm">
+          <div className="opacity-80">© {new Date().getFullYear()} Atul Singh</div>
+          <nav className="flex items-center gap-6">
+            <a className="hover:opacity-100 opacity-80" href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+            <a className="hover:opacity-100 opacity-80" href="https://linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a className="hover:opacity-100 opacity-80" href="mailto:atul0636@gmail.com">atul0636@gmail.com</a>
+          </nav>
+        </div>
+      </div>
     </div>
   );
 }

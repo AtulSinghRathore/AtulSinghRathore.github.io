@@ -1,38 +1,44 @@
-import { NextResponse } from "next/server";
-import { z } from "zod";
+// app/api/contact/route.ts
 import { Resend } from "resend";
 
-const Body = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  message: z.string().min(5)
-});
-
 export async function POST(req: Request) {
-  const json = await req.json().catch(() => null);
-  const parsed = Body.safeParse(json);
-  if (!parsed.success) {
-    return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
+  try {
+    // Accept JSON or Form submissions
+    const ctype = req.headers.get("content-type") || "";
+    let name = "";
+    let email = "";
+    let message = "";
+
+    if (ctype.includes("application/json")) {
+      const data: any = await req.json();
+      name = (data?.name ?? "").toString();
+      email = (data?.email ?? "").toString();
+      message = (data?.message ?? "").toString();
+    } else {
+      const fd = await req.formData();
+      name = String(fd.get("name") ?? "");
+      email = String(fd.get("email") ?? "");
+      message = String(fd.get("message") ?? "");
+    }
+
+    if (!name || !email || !message) {
+      return Response.json({ ok: false, error: "Missing fields" }, { status: 400 });
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    await resend.emails.send({
+      from: process.env.CONTACT_FROM || "Portfolio <onboarding@resend.dev>",
+      to: (process.env.CONTACT_TO || "natul0636@gmail.com").split(","),
+      // 👇 resend@6 uses camelCase:
+      replyTo: email,
+      subject: `New portfolio lead from ${name}`,
+      text: message,
+    });
+
+    return Response.json({ ok: true });
+  } catch (err) {
+    console.error("CONTACT_ERR:", err);
+    return Response.json({ ok: false, error: "Email send failed" }, { status: 500 });
   }
-
-  const { name, email, message } = parsed.data;
-
-  const TO = process.env.CONTACT_TO ?? "natul0636@natul.com";
-  const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
-  if (!RESEND_API_KEY) {
-    // No email provider configured; pretend success and log.
-    console.log("CONTACT (dry-run):", { name, email, message });
-    return NextResponse.json({ ok: true, dryRun: true });
-  }
-
-  const resend = new Resend(RESEND_API_KEY);
-  await resend.emails.send({
-    to: TO,
-    from: "portfolio@your-domain.dev",
-    subject: "Portfolio enquiry",
-    text: `Name: ${name}\nEmail: ${email}\n\n${message}`
-  });
-
-  return NextResponse.json({ ok: true });
 }

@@ -1,32 +1,29 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.4);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all ${
-        scrolled ? "backdrop-blur bg-bg/70" : "bg-gradient-to-b from-bg/85 to-transparent"
+    <nav
+      aria-label="Site"
+      className={`pointer-events-none fixed top-6 right-6 z-[60] transition-opacity duration-300 ${
+        visible ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-        <div className="w-9 h-9 rounded-xl grid place-items-center bg-[linear-gradient(135deg,var(--accent),var(--accent2))] text-[#0c0f15] font-extrabold shadow-glow">
-          AS
-        </div>
-        <nav className="text-sm">
-          <a className="px-3 py-2 opacity-85 hover:opacity-100" href="#work">Work</a>
-          <a className="px-3 py-2 opacity-85 hover:opacity-100" href="#about">About</a>
-          <a className="px-3 py-2 opacity-85 hover:opacity-100 border rounded-full ml-2 magnetic" href="#contact">Contact</a>
-        </nav>
+      <div className="pointer-events-auto flex items-center gap-4">
+        <a href="#work" className="pill">Work</a>
+        <a href="#about" className="pill">About</a>
+        <a href="#contact" className="pill">Contact</a>
       </div>
-    </header>
+    </nav>
   );
 }

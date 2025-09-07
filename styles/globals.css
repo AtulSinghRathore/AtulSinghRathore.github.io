@@ -2,81 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Theme ===== */
 :root {
-  --bg: #0b0d12;
-  --surface: #0d0f14;
-  --text: #e7ebf2;
-  --muted: #a3aab8;
-  --accent: #3ea6ff;
-  --accent2: #7b61ff;
+  --bg: #080808;     /* site black */
+  --text: #f0f0f0;   /* site white */
+  --muted: 0.65;
 }
 
-html, body { height: 100%; }
+html, body, #__next { height: 100%; }
+
 body {
-  @apply text-text bg-bg antialiased;
-  background-image: radial-gradient(1200px 800px at 70% -10%, #101421 0%, var(--bg) 60%);
-  background-attachment: fixed;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.gradient-card {
+.bg-bg { background-color: var(--bg); }
+.text-text { color: var(--text); }
+.text-muted {
+  color: color-mix(in oklab, var(--text) calc(var(--muted) * 100%), transparent);
+}
+
+/* ===== Shared UI bits ===== */
+.gradient-card{
   background:
-    conic-gradient(from 200deg at 50% 50%,
-      rgba(62,166,255,.25),
-      rgba(123,97,255,.2),
-      rgba(62,166,255,.25));
-  filter: saturate(125%) blur(.2px);
+    radial-gradient(120% 120% at 10% 0%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 90% 100%, rgba(255,255,255,.06), transparent 60%),
+    rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,.25) inset, 0 20px 60px rgba(0,0,0,.35);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
-.progress-dot {
-  @apply w-2.5 h-2.5 rounded-full bg-[#2a3142] outline outline-1 outline-transparent transition-transform;
+.section { @apply px-6 md:px-10; }
+
+/* Small pill link used in the floating nav */
+.pill{
+  @apply inline-block rounded-full border px-3 py-1 text-sm;
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  transition: background .25s, border-color .25s;
 }
-.progress-dot[data-active="true"] {
-  background: var(--accent);
-  outline-color: var(--accent);
+.pill:hover{
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.28);
 }
 
-.magnetic { position: relative; will-change: transform; }
-
-/* forming text base */
-.cursor-forming { display: inline-flex; flex-wrap: wrap; }
-.cf-char{
-  display:inline-block;
-  will-change: transform, filter, opacity;
-  transition: transform .22s cubic-bezier(.2,.6,.2,1),
-              filter .22s cubic-bezier(.2,.6,.2,1),
-              opacity .22s linear;
-  opacity:.35;
-  transform: translateZ(0) scale(.9);
-  filter: blur(4px);
-}
-@media (prefers-reduced-motion: reduce){
-  .cf-char{ opacity:1; filter:none; transform:none; transition:none; }
+/* optional subtle texture used in Contact */
+.contact-noise{
+  background:
+    radial-gradient(120% 90% at 50% 10%, #111 0%, #0c0c0c 55%, #080808 100%);
+  filter: contrast(1.04) saturate(1.02);
 }
 
-/* ========= Selected Work helpers ========= */
-.tag { @apply text-xs text-muted border border-[#2b3243] px-2 py-0.5 rounded-full; }
+/* ===== Selected Work background (single, conflict-free) ===== */
+.work-bg{
+  position: relative;
+  overflow: hidden;
+  background: #121212; /* slightly lighter than body for separation */
+}
+.work-bg::before{
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(120% 90% at 70% 15%, rgba(240,240,240,.14), transparent 60%),
+    radial-gradient(120% 90% at 20% 85%, rgba(240,240,240,.10), transparent 60%),
+    radial-gradient(140% 110% at 50% 50%, rgba(0,0,0,.35), rgba(0,0,0,.55) 60%, rgba(0,0,0,.65) 100%);
+  filter: blur(6px);
+}
+/* Wordmark disabled so it won't appear again */
+.work-bg::after { content: none !important; }
 
-.card-sheen::after{
-  content:""; position:absolute; inset:-20%;
-  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.08) 50%, transparent 60%);
-  transform: translateX(-120%) rotate(8deg);
-  transition: transform .8s cubic-bezier(.2,.6,.2,1);
-  pointer-events: none;
-}
-.group:hover .card-sheen::after{ transform: translateX(120%) rotate(8deg); }
-
-/* ========= Ning-style hero helpers ========= */
-.stroke-text {
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: rgba(255,255,255,0.65);
-}
-.hero-big {
-  display: inline-block;
-  letter-spacing: 0.06em;
-  line-height: 0.9;
-  font-weight: 800;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: clamp(5rem, 12vw, 12rem);
-  color: transparent; /* stroke only */
-}
-.mix-blend-difference { mix-blend-mode: difference; }
+/* keep all real content above the background layers */
+.work-bg > *{ position: relative; z-index: 1; }

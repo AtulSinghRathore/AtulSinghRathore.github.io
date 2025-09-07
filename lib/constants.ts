@@ -1,69 +1,77 @@
 // lib/constants.ts
-
 export type Project = {
   slug: string;
   title: string;
   description: string;
-  tags: string[];
-  media?: {
-    kind: "video" | "image";
-    src: string;     // e.g. "/previews/signal.mp4" or "/previews/signal.jpg"
-    poster?: string; // optional poster for videos
-  };
-  case: {
-    problem: string;
-    approach: string;
-    result: string;
-  };
+  // hot-linked image (no local files)
+  cover: string;
+  // optional tag line you can surface later
+  tags?: string[];
 };
 
 export const projects: Project[] = [
   {
-    slug: "signal",
-    title: "Signal",
-    description: "Real-time web dashboard — Next.js, GSAP, WebSockets",
-    tags: ["Web", "GSAP", "Realtime"],
-    media: { kind: "video", src: "/previews/signal.mp4", poster: "/previews/signal.jpg" },
-    case: {
-      problem: "Stakeholders needed a live telemetry dashboard with zero training.",
-      approach: "Built narrative views with sticky sections and gentle reveals for context.",
-      result: "Time-to-insight improved 2×; reduced onboarding friction dramatically."
-    }
+    slug: "ms-trading-platform",
+    title: "Wealth Management Trading Platform",
+    description:
+      "Internal trading app for wealth managers: multi-asset orders, blotter, positions & risk. (Generic description; no proprietary details.)",
+    cover: "https://source.unsplash.com/1600x900/?stock,charts,terminal",
+    tags: ["FinTech", "React", "TypeScript"],
   },
   {
-    slug: "trace",
-    title: "Trace",
-    description: "Case study: sticky storytelling — r3f + ScrollTrigger",
-    tags: ["Case Study", "3D", "Scroll"],
-    media: { kind: "video", src: "/previews/trace.mp4", poster: "/previews/trace.jpg" },
-    case: {
-      problem: "Complex visualizations overwhelmed users.",
-      approach: "Segmented chapters; pinned text while media advanced in 3–4 frames.",
-      result: "Engagement and completion rate increased by 68%."
-    }
+    slug: "payment-processing",
+    title: "Payment Processing",
+    description:
+      "Card-present & online flows: authorization, capture, refunds, reconciliation dashboards.",
+    cover: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Payment_card_reader.jpg",
+    tags: ["Payments", "PCI", "APIs"],
   },
   {
-    slug: "vita",
-    title: "Vita",
-    description: "Design system & motion — Framer Motion",
-    tags: ["Design System", "Motion"],
-    media: { kind: "image", src: "/previews/vita.jpg" },
-    case: {
-      problem: "Inconsistent interactions across product surfaces.",
-      approach: "Created motion tokens and patterns with strict constraints.",
-      result: "Shipped consistent, accessible transitions at scale."
-    }
+    slug: "ecommerce-platform",
+    title: "E-commerce Platform",
+    description:
+      "Catalog, cart, checkout & order tracking with responsive storefront UI.",
+    cover: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Laptop_on_a_desk_%28Unsplash%29.jpg",
+    tags: ["Storefront", "SSR", "SEO"],
   },
   {
-    slug: "arc",
-    title: "Arc",
-    description: "3D depth & parallax — WebGL-light",
-    tags: ["3D", "Parallax"],
-    media: { kind: "image", src: "/previews/arc.jpg" },
-    case: {
-      problem: "Landing pages felt flat and interchangeable.",
-      approach: "Subtle depth, parallax layers, and masked reveals at 60fps.",
-      result: "Brand recall and conversion uplift across campaigns."
-    }
-  }
+    slug: "image-sharing-app",
+    title: "Image Sharing",
+    description:
+      "Upload, feed, likes & comments with CDN optimization and lazy media.",
+    cover: "https://source.unsplash.com/1600x900/?smartphone,camera,photos",
+    tags: ["Mobile-first", "CDN", "Media"],
+  },
+  {
+    slug: "data-viz-dashboard",
+    title: "Data Visualization Dashboard",
+    description:
+      "Real-time metrics with accessible tooltips, zoom & pan for dense charts.",
+    cover: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Candlesticks.png",
+    tags: ["D3/Charting", "A11y"],
+  },
+  {
+    slug: "microservices-platform",
+    title: "Microservices Platform",
+    description:
+      "Service split, contracts, observability and rollout strategies across environments.",
+    cover: "https://upload.wikimedia.org/wikipedia/commons/9/90/DHL_Netherlands_local_site_computer_room_wires_-_IMG_3294.jpg",
+    tags: ["K8s", "CI/CD", "Observability"],
+  },
+  {
+    slug: "portfolio-experiments",
+    title: "Portfolio Experiments",
+    description:
+      "Cinematic interactions with GSAP / WebGL while preserving performance budgets.",
+    cover: "https://source.unsplash.com/1600x900/?web,gsap,animation",
+    tags: ["GSAP", "WebGL"],
+  },
+  {
+    slug: "accessibility-upgrades",
+    title: "Accessibility Upgrades",
+    description:
+      "Color-contrast, focus states, semantic roles and keyboard parity across flows.",
+    cover: "https://source.unsplash.com/1600x900/?accessibility,ui",
+    tags: ["WCAG", "UX"],
+  },
 ];

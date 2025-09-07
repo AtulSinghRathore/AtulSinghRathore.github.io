@@ -6,19 +6,21 @@
       "dom.iterable",
       "es2021"
     ],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {},
     "incremental": true,
+    "baseUrl": "./",
+    "types": [
+      "node"
+    ],
     "plugins": [
       {
         "name": "next"
