@@ -1,47 +1,24 @@
 // components/Hero.tsx
 "use client";
 
-import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CursorFormingText from "../components/CursorFormingText";
-
-gsap.registerPlugin(ScrollTrigger);
-
-export default function Hero() {
-  useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.from(".hero-sub", { y: 16, opacity: 0, duration: 0.6 }, 0.2)
-      .from(".hero-cta", { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, 0.3);
-  }, []);
-
+export default function Hero({ onOpenAbout }: { onOpenAbout: () => void }) {
   return (
-    <div className="relative overflow-hidden min-h-[100svh] grid items-center px-6">
-      {/* ... your gradient layers remain ... */}
+    <div className="relative mx-auto flex h-[100svh] max-w-[1400px] items-center justify-center px-6">
+      <h1 className="pointer-events-none select-none text-center text-[clamp(56px,8vw,168px)] leading-none font-black tracking-tight">
+        ATUL SINGH’25
+      </h1>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
-        <h1 className="font-black text-[clamp(36px,8vw,96px)] leading-[1.05] tracking-[-0.02em]">
-          <CursorFormingText text="Atul Singh" />
-          <br />
-          <span className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(90deg, var(--accent), var(--accent2))" }}>
-            <CursorFormingText text="Full-Stack Developer" radius={200} />
-          </span>
-        </h1>
+      {/* Invisible #about anchor for the header “About” link */}
+      <span id="about" className="absolute -top-20" aria-hidden />
 
-        <p className="hero-sub text-muted text-[clamp(16px,2.2vw,22px)] mt-1">
-          I build fast, elegant, human-centered web experiences.
-        </p>
-
-        <div className="flex gap-3 mt-4 flex-wrap">
-          <a href="#work" className="hero-cta magnetic inline-flex items-center justify-center px-5 py-3 rounded-full font-semibold shadow-glow text-[#0c0f15]"
-             style={{ backgroundImage: "linear-gradient(135deg, var(--accent), var(--accent2))" }}>
-            See Work
-          </a>
-          <a href="#about" className="hero-cta magnetic inline-flex items-center justify-center px-5 py-3 rounded-full border border-[#2b3243]">
-            Philosophy
-          </a>
-        </div>
+      {/* Clickable hotspots if you want them even on hero */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-between text-xs tracking-[.25em] opacity-60">
+        <button onClick={onOpenAbout} className="pointer-events-auto hover:opacity-100">
+          ( ABOUT )
+        </button>
+        <a href="#contact" className="pointer-events-auto hover:opacity-100">
+          ( CONTACT )
+        </a>
       </div>
     </div>
   );

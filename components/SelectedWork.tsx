@@ -4,6 +4,8 @@ import { useMemo, useRef, useState } from "react";
 import type { Project } from "../lib/constants";
 import { motion } from "framer-motion";
 
+/* ---------- media previews ---------- */
+
 function VideoPreview({ src, poster }: { src: string; poster?: string }) {
   const ref = useRef<HTMLVideoElement | null>(null);
   return (
@@ -39,13 +41,23 @@ function ImagePreview({ src }: { src: string }) {
   );
 }
 
+/* ---------- Selected Work (tags/media tolerant) ---------- */
+
 export default function SelectedWork({ data }: { data: Project[] }) {
-  const allTags = useMemo(
-    () => ["All", ...Array.from(new Set(data.flatMap((p) => p.tags)))],
-    [data]
-  );
+  // Build tag list safely even if some items have no `tags`
+  const allTags = useMemo(() => {
+    const set = new Set<string>();
+    for (const p of data) for (const t of ((p as any).tags ?? []) as string[]) set.add(t);
+    return ["All", ...Array.from(set)];
+  }, [data]);
+
   const [tag, setTag] = useState("All");
-  const shown = tag === "All" ? data : data.filter((p) => p.tags.includes(tag));
+
+  // Filter safely (tolerate missing tags)
+  const shown =
+    tag === "All"
+      ? data
+      : data.filter((p) => (((p as any).tags ?? []) as string[]).includes(tag));
 
   return (
     <section id="work" className="min-h-[100svh] py-20 px-6">
@@ -63,8 +75,9 @@ export default function SelectedWork({ data }: { data: Project[] }) {
               <button
                 key={t}
                 onClick={() => setTag(t)}
-                className={`px-3 py-1.5 rounded-full text-sm transition-colors
-                  ${tag === t ? "text-[#0c0f15]" : "text-muted border border-[#2b3243]"}`}
+                className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                  tag === t ? "text-[#0c0f15]" : "text-muted border border-[#2b3243]"
+                }`}
                 style={
                   tag === t
                     ? { backgroundImage: "linear-gradient(135deg, var(--accent), var(--accent2))" }
@@ -78,53 +91,60 @@ export default function SelectedWork({ data }: { data: Project[] }) {
         </div>
       </div>
 
-      {/* Grid (NO initial/animate/exit to avoid SSR hydration mismatch) */}
+      {/* Grid (no initial/animate/exit => avoid hydration issues) */}
       <div className="grid max-w-5xl mx-auto gap-5 md:grid-cols-2 mt-5">
-        {shown.map((p) => (
-          <motion.a
-            key={p.slug}
-            href={`/work/${p.slug}`}
-            layout
-            transition={{ layout: { duration: 0.25, ease: "easeOut" } }}
-            onMouseMove={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              const r = el.getBoundingClientRect();
-              const px = (e.clientX - r.left) / r.width - 0.5;
-              const py = (e.clientY - r.top) / r.height - 0.5;
-              el.style.setProperty("--rx", String(py * -6));
-              el.style.setProperty("--ry", String(px * 6));
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.setProperty("--rx", "0");
-              el.style.setProperty("--ry", "0");
-            }}
-            className="group border border-[#202637] rounded-2xl overflow-hidden bg-white/[.02] block
-                       [transform-style:preserve-3d]
-                       [transform:perspective(900px)_rotateX(var(--rx,0deg))_rotateY(var(--ry,0deg))]
-                       transition-transform duration-300 will-change-transform hover:shadow-glow"
-          >
-            {p.media?.kind === "video" ? (
-              <VideoPreview src={p.media.src} poster={p.media.poster} />
-            ) : p.media?.kind === "image" ? (
-              <ImagePreview src={p.media.src} />
-            ) : (
-              <div className="relative h-64 bg-[#0f1624] card-sheen" />
-            )}
+        {shown.map((p) => {
+          const media = (p as any).media as
+            | { kind?: "video" | "image"; src?: string; poster?: string }
+            | undefined;
+          const tags = (((p as any).tags ?? []) as string[]);
 
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{p.title}</h3>
-              <p className="text-muted">{p.description}</p>
-              <div className="mt-2 flex gap-1.5 flex-wrap">
-                {p.tags.map((t) => (
-                  <span key={t} className="tag">
-                    {t}
-                  </span>
-                ))}
+          return (
+            <motion.a
+              key={p.slug}
+              href={`/work/${p.slug}`}
+              layout
+              transition={{ layout: { duration: 0.25, ease: "easeOut" } }}
+              onMouseMove={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                const r = el.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width - 0.5;
+                const py = (e.clientY - r.top) / r.height - 0.5;
+                el.style.setProperty("--rx", String(py * -6));
+                el.style.setProperty("--ry", String(px * 6));
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.setProperty("--rx", "0");
+                el.style.setProperty("--ry", "0");
+              }}
+              className="group border border-[#202637] rounded-2xl overflow-hidden bg-white/[.02] block
+                         [transform-style:preserve-3d]
+                         [transform:perspective(900px)_rotateX(var(--rx,0deg))_rotateY(var(--ry,0deg))]
+                         transition-transform duration-300 will-change-transform hover:shadow-glow"
+            >
+              {media?.kind === "video" && media.src ? (
+                <VideoPreview src={media.src} poster={media.poster} />
+              ) : media?.kind === "image" && media.src ? (
+                <ImagePreview src={media.src} />
+              ) : (
+                <div className="relative h-64 bg-[#0f1624] card-sheen" />
+              )}
+
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{p.title}</h3>
+                <p className="text-muted">{p.description}</p>
+                <div className="mt-2 flex gap-1.5 flex-wrap">
+                  {tags.map((t) => (
+                    <span key={t} className="tag">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.a>
-        ))}
+            </motion.a>
+          );
+        })}
       </div>
     </section>
   );

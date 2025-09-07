@@ -1,74 +1,98 @@
+// components/ShowreelCube.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ShowreelCube() {
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const cubeRef = useRef<HTMLDivElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current!;
-    const cube = cubeRef.current!;
-    const mm = gsap.matchMedia();
+    const inner = innerRef.current!;
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.set(cube, { transformStyle: "preserve-3d", rotateX: -12, rotateY: 18 });
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: wrap,
-          start: "top top",
-          end: "+=140%",
-          scrub: true,
-          pin: true
-        }
-      })
-      .to(cube, { rotateY: 198, ease: "none" }, 0)
-      .to(cube, { rotateX: 12, ease: "none" }, 0);
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: wrap,
+        start: "top bottom",   // when section enters
+        end: "bottom top",     // when it leaves
+        scrub: true,
+      },
     });
 
-    return () => mm.revert();
+    tl.fromTo(
+      wrap,
+      { scale: 0.25, rotate: -15 },
+      { scale: 0.75, rotate: 0, ease: "none" }
+    ).to(wrap, { rotateY: 360, ease: "none" });
+
+    gsap.to(inner, {
+      rotateX: -360,
+      ease: "none",
+      scrollTrigger: {
+        trigger: wrap,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
   }, []);
 
-  const face = (className: string, transform: string, label: string) => (
-    <div
-      className={`absolute inset-0 grid place-items-center text-sm font-semibold ${className}`}
-      style={{ transform }}
-    >
-      <span className="px-2 py-1 rounded bg-black/30 border border-white/10">{label}</span>
-    </div>
-  );
-
   return (
-    <section ref={wrapRef} className="relative min-h-[80svh] md:min-h-[100svh]">
+    <div className="mx-auto grid min-h-[120svh] place-items-center">
       <div
-        className="absolute inset-0 flex items-center justify-center"
-        style={{ perspective: "1200px" }}
+        ref={wrapRef}
+        className="relative h-[52vmin] w-[52vmin] [transform-style:preserve-3d]"
       >
-        <div
-          ref={cubeRef}
-          className="relative w-[55vmin] h-[55vmin] rounded-2xl"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {/* faces: 3D panels with gradients */}
-          <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(60%_60%_at_30%_30%,rgba(62,166,255,.25),transparent)]" />
-          {face("rounded-2xl bg-white/[.02] border border-[#202637]",
-            "translateZ(27.5vmin)", "Web / GSAP")}
-          {face("rounded-2xl bg-white/[.02] border border-[#202637]",
-            "rotateY(90deg) translateZ(27.5vmin)", "3D / CSS")}
-          {face("rounded-2xl bg-white/[.02] border border-[#202637]",
-            "rotateY(-90deg) translateZ(27.5vmin)", "Art Dir.")}
-          {face("rounded-2xl bg-white/[.02] border border-[#202637]",
-            "rotateX(90deg) translateZ(27.5vmin)", "Motion")}
-          {face("rounded-2xl bg-white/[.02] border border-[#202637]",
-            "rotateX(-90deg) translateZ(27.5vmin)", "Interaction")}
-          {face("rounded-2xl bg-white/[.02] border border-[#202637]",
-            "rotateY(180deg) translateZ(27.5vmin)", "Case Studies")}
+        {/* 6 faces */}
+        {["front", "back", "left", "right", "top", "bottom"].map((side, i) => (
+          <Face key={side} i={i}>
+            <span className="opacity-70">{side.toUpperCase()}</span>
+          </Face>
+        ))}
+
+        {/* inner cube, counter-rotating */}
+        <div ref={innerRef} className="absolute inset-0 m-auto h-[36vmin] w-[36vmin] [transform-style:preserve-3d]">
+          {["F", "B", "L", "R", "T", "D"].map((s, i) => (
+            <Face key={s} i={i} inner>
+              <span className="opacity-60">{s}</span>
+            </Face>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
+  );
+}
+
+function Face({
+  i,
+  inner,
+  children,
+}: {
+  i: number;
+  inner?: boolean;
+  children: React.ReactNode;
+}) {
+  const d = inner ? "translateZ(18vmin)" : "translateZ(26vmin)";
+  const transform = [
+    `${d}`, // front
+    `rotateY(180deg) ${d}`, // back
+    `rotateY(-90deg) ${d}`, // left
+    `rotateY(90deg) ${d}`, // right
+    `rotateX(90deg) ${d}`, // top
+    `rotateX(-90deg) ${d}`, // bottom
+  ][i];
+
+  return (
+    <div
+      className="absolute inset-0 grid place-items-center rounded-2xl bg-white/[.02] border border-white/10 shadow-[inset_0_0_60px_rgba(255,255,255,.05)]"
+      style={{ transform }}
+    >
+      {children}
+    </div>
   );
 }
